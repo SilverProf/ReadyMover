@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cya7w0pbelwab"]
+
+[ext_resource type="Shader" path="res://Materials/shd_mover.gdshader" id="1_ojpat"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_ojpat")
+shader_parameter/color = Vector3(1, 0, 0)

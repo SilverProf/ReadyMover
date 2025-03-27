@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b3ouc4itbhipx"]
+
+[sub_resource type="Shader" id="Shader_8xx12"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 color = vec3(1.0);
+uniform float innerRadius = .38;
+uniform float outerRadius = .45;
+
+float distFromCenter(vec2 uv) {
+	float a = abs(uv.x - .5);
+	float b = abs(uv.y - .5);
+	
+	return sqrt((a * a) + (b * b));
+}
+
+bool inRing(vec2 uv) {
+	return distFromCenter(uv) >= innerRadius && distFromCenter(uv) <= outerRadius;
+}
+
+void fragment() {
+	COLOR = vec4(color, (inRing(UV)) ? 1.0 : 0.0);
+}"
+
+[resource]
+resource_local_to_scene = true
+shader = SubResource("Shader_8xx12")
+shader_parameter/color = Vector3(1, 0, 0)
+shader_parameter/innerRadius = 0.38
+shader_parameter/outerRadius = 0.45

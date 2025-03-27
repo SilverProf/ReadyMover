@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvephl13egpja"]
+
+[ext_resource type="Material" uid="uid://cya7w0pbelwab" path="res://Materials/mat_mover.tres" id="1_0d6xf"]
+[ext_resource type="Texture2D" uid="uid://dq0stoev3g4mw" path="res://icon.svg" id="1_bia0q"]
+[ext_resource type="Script" path="res://Scripts/mover.gd" id="3_sfan8"]
+
+[node name="Mover" type="Sprite2D"]
+material = ExtResource("1_0d6xf")
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("1_bia0q")
+script = ExtResource("3_sfan8")

@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://qio1fkgdgo6u"]
+
+[ext_resource type="Material" uid="uid://b3ouc4itbhipx" path="res://Materials/mat_goal.tres" id="1_4to75"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_jd5aa"]
+[ext_resource type="Texture2D" uid="uid://dq0stoev3g4mw" path="res://icon.svg" id="1_t4nub"]
+
+[sub_resource type="Shader" id="Shader_8xx12"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 color = vec3(1.0);
+uniform float innerRadius = .38;
+uniform float outerRadius = .45;
+
+float distFromCenter(vec2 uv) {
+	float a = abs(uv.x - .5);
+	float b = abs(uv.y - .5);
+	
+	return sqrt((a * a) + (b * b));
+}
+
+bool inRing(vec2 uv) {
+	return distFromCenter(uv) >= innerRadius && distFromCenter(uv) <= outerRadius;
+}
+
+void fragment() {
+	COLOR = vec4(color, (inRing(UV)) ? 1.0 : 0.0);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tsivg"]
+resource_local_to_scene = true
+shader = SubResource("Shader_8xx12")
+shader_parameter/color = Vector3(0, 1, 0)
+shader_parameter/innerRadius = 0.38
+shader_parameter/outerRadius = 0.45
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn6jl"]
+resource_local_to_scene = true
+shader = SubResource("Shader_8xx12")
+shader_parameter/color = Vector3(0, 0, 1)
+shader_parameter/innerRadius = 0.38
+shader_parameter/outerRadius = 0.45
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_jd5aa")
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(576, 696)
+
+[node name="Goals" type="Node2D" parent="."]
+
+[node name="Red Goal" type="Sprite2D" parent="Goals"]
+material = ExtResource("1_4to75")
+position = Vector2(115.2, 64)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_t4nub")
+
+[node name="Green Goal" type="Sprite2D" parent="Goals"]
+material = SubResource("ShaderMaterial_tsivg")
+position = Vector2(576, 64)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_t4nub")
+
+[node name="Blue Goal" type="Sprite2D" parent="Goals"]
+material = SubResource("ShaderMaterial_fn6jl")
+position = Vector2(1036.8, 64)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_t4nub")
